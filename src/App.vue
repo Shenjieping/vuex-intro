@@ -1,28 +1,30 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    test:{{$store.state.age}} <br/>
+    getters: {{ $store.getters.getAge}} <br/>
+    <button @click="asyncAddHandler">Add</button>
+    <button @click="syncMinusHandler">Minus</button> <br/>
+    {{$store.getters.computedC}}
+    <!-- {{$store.state.a.b}} -->
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+  mounted() {
+    console.log(this.$store)
+    // setInterval(() => {
+    //   this.$store.state.age += 1;
+    // }, 1000)
+  },
+  methods: {
+    asyncAddHandler() {
+      this.$store.commit('asyncAdd', 10);
+    },
+    syncMinusHandler () {
+      this.$store.dispatch('syncMinus', 1)
+    }
+  },
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
